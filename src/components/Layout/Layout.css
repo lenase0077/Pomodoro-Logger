@@ -2,32 +2,91 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: var(--color-bg);
+    background-color: transparent;
+    /* Allow AmbientBackground to show */
     color: var(--color-text-main);
+    position: relative;
 }
 
 .app-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--space-sm) var(--space-lg);
-    /* Reduced padding for compact look */
+    padding: 10px 24px;
+
+    /* Floating Pill Design */
     position: sticky;
-    top: 0;
+    top: 20px;
     z-index: 50;
-    /* Higher Z-index to avoid overlap issues */
-    background-color: hsla(220, 20%, 97%, 0.85);
-    /* Slightly more opaque */
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid transparent;
-    /* Smooth transition for border */
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto 20px auto;
+    border-radius: 50px;
+    /* Pill shape */
+
+    /* Premium Glass */
+    background-color: hsla(220, 20%, 97%, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.02);
+
     height: 60px;
-    /* Explicit height to prevent layout shifts */
+    transition: all 0.3s ease;
 }
 
 [data-theme='dark'] .app-header {
-    background-color: hsla(225, 20%, 8%, 0.85);
-    border-bottom-color: rgba(255, 255, 255, 0.05);
+    background-color: hsla(225, 20%, 8%, 0.6);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Header Adaptation */
+@media (max-width: 768px) {
+    .app-header {
+        position: fixed;
+        /* Fixed to cover top completely */
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+        border: none;
+        /* Opaque solid background */
+        background-color: var(--color-bg);
+        backdrop-filter: none;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        /* Stronger shadow to define edge */
+        padding: 0 16px;
+        height: 60px;
+        /* Standard height */
+        z-index: 1000;
+        /* Ensure on top */
+    }
+
+    [data-theme='dark'] .app-header {
+        background-color: var(--color-bg);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .app-content {
+        padding-top: 80px !important;
+        /* Push content down: 60px header + 20px gap */
+    }
+
+    .app-header .logo h1 {
+        font-size: 1.1rem;
+        /* Restore readable size but not huge */
+        margin: 0;
+    }
+
+    .app-header .logo-icon {
+        font-size: 1.1rem;
+        width: 22px;
+        height: 22px;
+    }
 }
 
 .logo {
@@ -83,6 +142,21 @@
         "galaxy"
         "stats"
         "tasks";
+    justify-items: center;
+    /* Center items horizontally */
+}
+
+/* Ensure children take reasonable width when centered */
+.area-timer,
+.area-galaxy,
+.area-stats,
+.area-tasks {
+    width: 100%;
+    max-width: 500px;
+    /* Prevent stretching too wide on tablet */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Assign Areas */
@@ -116,7 +190,8 @@
 
     .area-tasks {
         position: sticky;
-        top: 80px;
+        top: 110px;
+        /* Increased to clear floating header + margin */
         /* Offset for header */
         height: calc(100vh - 100px);
         display: flex;

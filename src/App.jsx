@@ -10,6 +10,7 @@ import SettingsModal from './components/Settings/SettingsModal'
 import { useTimer } from './hooks/useTimer'
 import { useWorkLog } from './hooks/useWorkLog'
 import { Share2, Settings } from 'lucide-react'
+import AmbientBackground from './components/Visuals/AmbientBackground'
 import './App.css'
 
 function App() {
@@ -49,9 +50,12 @@ function App() {
   const handleTaskComplete = useCallback((taskText) => {
     // Add log with "task" focus type logic. 
     // For now using 'focus' so it appears as a star/square.
-    // 0 duration to not mess up total hours too much? Or 15 min assumption? 
-    // User said: "registrar checklist, y automaticamente se agreguen al grafico"
-    // Let's count it as a "Small Win" -> maybe 10 mins or just 0.
+
+    // Removed confetti trigger here as it should be in TaskList? 
+    // Actually TaskList handles the animation, App handles the logging.
+    // But we can trigger global confetti here if we want!
+    // But the previous edit tried to put it in TaskList. Let's stick to putting it in TaskList for immediate feedback on click.
+
     addLog(`Task Completed: ${taskText}`, 0, 'focus');
   }, [addLog]);
 
@@ -85,7 +89,6 @@ function App() {
           <Settings size={20} />
         </button>
 
-        {/* Settings Popover is rendered HERE, relative to the button container */}
         <SettingsModal
           isOpen={showSettings}
           onClose={() => setShowSettings(false)}
@@ -93,6 +96,8 @@ function App() {
         />
       </div>
     }>
+      <AmbientBackground mode={mode.id} />
+
       <div className="area-timer">
         <Timer
           timerState={{ timeLeft, isRunning, mode, progress, formatTime, MODES, finishSession }}
@@ -158,8 +163,6 @@ function App() {
           onClose={() => setShowExport(false)}
         />
       )}
-
-      {/* Settings Modal removed from bottom, now in Header */}
 
       {/* Debug Control */}
       <div style={{ position: 'fixed', bottom: '10px', right: '10px', opacity: 0.2, transition: 'opacity 0.3s', zIndex: 9999 }}

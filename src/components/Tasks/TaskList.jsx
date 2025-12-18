@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Plus, Trash2, CheckCircle, Circle, Archive } from 'lucide-react';
+import confetti from 'canvas-confetti';
 import './TaskList.css';
 
 export default function TaskList({ onTaskComplete }) {
@@ -54,6 +55,22 @@ export default function TaskList({ onTaskComplete }) {
 
         // Trigger side effect ONLY if completing (and outside the setter)
         if (willBeCompleted && onTaskComplete) {
+            // Confetti explosion!
+            const rect = document.activeElement ? document.activeElement.getBoundingClientRect() : null;
+            // Try to originate from the button click if possible, else default
+            // Actually activeElement might likely be the button.
+
+            confetti({
+                particleCount: 80,
+                spread: 60,
+                origin: rect ? {
+                    x: (rect.left + rect.width / 2) / window.innerWidth,
+                    y: (rect.top + rect.height / 2) / window.innerHeight
+                } : { y: 0.6 },
+                colors: ['#7c3aed', '#2563eb', '#3b82f6', '#60a5fa'],
+                disableForReducedMotion: true
+            });
+
             onTaskComplete(taskToUpdate.text);
         }
     };

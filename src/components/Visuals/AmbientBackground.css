@@ -1,0 +1,196 @@
+.ambient-bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background-color: var(--color-bg);
+    /* Fallback */
+    transition: background-color 1.5s ease;
+}
+
+/* Orbs */
+.aurora-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: float 20s infinite ease-in-out;
+    transition: background 2s ease;
+}
+
+.orb-1 {
+    width: 50vw;
+    height: 50vw;
+    top: -10%;
+    left: -10%;
+    animation-delay: 0s;
+}
+
+.orb-2 {
+    width: 40vw;
+    height: 40vw;
+    bottom: 0%;
+    right: -5%;
+    animation-delay: -5s;
+}
+
+.orb-3 {
+    width: 30vw;
+    height: 30vw;
+    top: 40%;
+    left: 40%;
+    animation-delay: -10s;
+}
+
+.noise-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.03;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(30px, -50px) scale(1.1);
+    }
+
+    66% {
+        transform: translate(-20px, 20px) scale(0.9);
+    }
+
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+}
+
+/* Mode Colors */
+
+/* FOCUS (Deep Purple / Cosmic) */
+.mode-focus {
+    background: radial-gradient(circle at center, #1a1a2e 0%, #0f0f1a 100%);
+}
+
+.mode-focus .orb-1 {
+    background: #4a148c;
+}
+
+/* Purple */
+.mode-focus .orb-2 {
+    background: #311b92;
+}
+
+/* Deep Indigo */
+.mode-focus .orb-3 {
+    background: #004d40;
+    opacity: 0.2;
+}
+
+/* Subtle Teal accent */
+
+/* SHORT BREAK (Teal / Zen) */
+.mode-short_break {
+    background: radial-gradient(circle at center, #e0f2f1 0%, #b2dfdb 100%);
+}
+
+/* Dark mode override handled by CSS vars if strict, but let's do specific theme logic 
+   Actually, ambient background might clash with theme. 
+   Let's ensure it respects light/dark or enforces its own mood.
+   Since the user wants "visuals", usually these are colorful.
+   Let's use HSL to be safe for both or just use low opacity on top of variable bg?
+   No, let's force the background but make sure text remains readable. 
+   Currently app uses --color-bg. AmbientBackground lays BEHIND app-content.
+   We need Layout to be transparent or the AmbientBackground won't show.
+   We will need to adjust Layout.css to make .app-layout background transparent.
+*/
+
+/* Let's try to adapt to current theme variables somewhat or just be bold. 
+   User asked for "Aurora".
+*/
+
+[data-theme='dark'] .mode-focus {
+    background: #050505;
+}
+
+[data-theme='dark'] .mode-focus .orb-1 {
+    background: #7c3aed;
+}
+
+/* Violet */
+[data-theme='dark'] .mode-focus .orb-2 {
+    background: #2563eb;
+}
+
+/* Blue */
+
+[data-theme='light'] .mode-focus {
+    background: #f3f4f6;
+}
+
+[data-theme='light'] .mode-focus .orb-1 {
+    background: #ddd6fe;
+}
+
+[data-theme='light'] .mode-focus .orb-2 {
+    background: #bfdbfe;
+}
+
+/* Breaks */
+/* Breaks */
+.mode-short_break .orb-1 {
+    background: var(--color-primary);
+}
+
+.mode-short_break .orb-2 {
+    background: var(--color-secondary);
+}
+
+[data-theme='dark'] .mode-short_break {
+    background: radial-gradient(circle at center, #0f1c1c 0%, #050505 100%);
+}
+
+[data-theme='dark'] .mode-short_break .orb-1 {
+    background: #0d9488;
+    opacity: 0.3;
+}
+
+/* Teal */
+[data-theme='dark'] .mode-short_break .orb-2 {
+    background: #115e59;
+    opacity: 0.3;
+}
+
+.mode-long_break .orb-1 {
+    background: #f59e0b;
+}
+
+/* Amber */
+.mode-long_break .orb-2 {
+    background: #ef4444;
+}
+
+/* Redish */
+
+[data-theme='dark'] .mode-long_break {
+    background: radial-gradient(circle at center, #1c1005 0%, #050505 100%);
+}
+
+[data-theme='dark'] .mode-long_break .orb-1 {
+    background: #b45309;
+    opacity: 0.3;
+}
+
+[data-theme='dark'] .mode-long_break .orb-2 {
+    background: #991b1b;
+    opacity: 0.3;
+}

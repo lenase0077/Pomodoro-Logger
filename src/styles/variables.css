@@ -100,26 +100,16 @@ button {
 }
 
 /* 
-   Apply transitions to all actionable/structual elements.
-   We select specific properties to optimize performance and prevent layout thrashing.
+   Apply transitions specifically to avoid performance issues.
+   Removed blanket selector ('div', 'span', etc) as it causes stutter during theme switches.
 */
-div,
 button,
-a,
 input,
 textarea,
-span,
-h1,
-h2,
-h3,
-h4,
-section,
-main,
-header,
-footer,
-svg {
-  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
-  transition-duration: var(--transition-normal);
-  transition-timing-function: var(--transition-normal);
-  /* Actually timing function is usually separate */
+a,
+.card,
+.modal-content {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: var(--transition-fast);
+  transition-timing-function: ease-out;
 }
