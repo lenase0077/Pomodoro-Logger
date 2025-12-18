@@ -136,17 +136,22 @@ export const useTimer = (initialMode = 'FOCUS') => {
         // playNotificationSound(); 
     }, []);
 
-    const formatTime = (seconds) => {
+    const formatTime = useCallback((seconds) => {
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
         return `${mins}:${secs.toString().padStart(2, '0')}`;
-    };
-
-    const debugFastForward = useCallback(() => {
-        setTimeLeft(5);
-        setIsRunning(true);
-        setIsCompleted(false);
     }, []);
+
+    // Update document title
+    useEffect(() => {
+        if (isRunning) {
+            document.title = `${formatTime(timeLeft)} - ${mode.label}`;
+        } else if (timeLeft === 0 && isCompleted) {
+            document.title = "Time's Up! 🔔";
+        } else {
+            document.title = "Pomodoro Logger";
+        }
+    }, [timeLeft, isRunning, mode, isCompleted, formatTime]);
 
     const progress = 1 - (timeLeft / mode.time);
 
@@ -162,7 +167,6 @@ export const useTimer = (initialMode = 'FOCUS') => {
         switchMode,
         formatTime,
         MODES: modes, // Export state modes
-        debugFastForward,
         finishSession,
         updateSettings
     };

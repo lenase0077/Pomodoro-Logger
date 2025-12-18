@@ -18,6 +18,12 @@ export default function Timer({
     return (
         <div className="timer-container">
             <div className="mode-selector">
+                <div
+                    className="selector-bg"
+                    style={{
+                        transform: `translateX(${Object.keys(MODES).findIndex(k => MODES[k].id === mode.id) * 100}%)`,
+                    }}
+                />
                 {Object.values(MODES).map((m) => (
                     <button
                         key={m.id}

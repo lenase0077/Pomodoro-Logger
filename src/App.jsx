@@ -26,7 +26,6 @@ function App() {
     switchMode,
     formatTime,
     MODES,
-    debugFastForward,
     finishSession,
     updateSettings
   } = useTimer();
@@ -163,15 +162,6 @@ function App() {
           onClose={() => setShowExport(false)}
         />
       )}
-
-      {/* Debug Control */}
-      <div style={{ position: 'fixed', bottom: '10px', right: '10px', opacity: 0.2, transition: 'opacity 0.3s', zIndex: 9999 }}
-        onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-        onMouseLeave={(e) => e.currentTarget.style.opacity = '0.2'}>
-        <button onClick={debugFastForward} style={{ fontSize: '0.7rem', padding: '4px 8px', borderRadius: '4px', border: '1px solid currentColor', background: 'var(--color-surface)', color: 'var(--color-text-main)', cursor: 'pointer' }}>
-          ⚡ Debug: 5s
-        </button>
-      </div>
 
     </Layout>
   )

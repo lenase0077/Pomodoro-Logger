@@ -6,29 +6,9 @@
 
 export const playNotificationSound = () => {
     try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContext) return;
-
-        const ctx = new AudioContext();
-        const oscillator = ctx.createOscillator();
-        const gainNode = ctx.createGain();
-
-        // Configuration for a "Zen Gong" style sound
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(440, ctx.currentTime); // A4 (440Hz)
-        // Drop pitch slightly for effect
-        oscillator.frequency.exponentialRampToValueAtTime(110, ctx.currentTime + 1.5);
-
-        // Envelope (Fade out)
-        gainNode.gain.setValueAtTime(0.5, ctx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1.5);
-
-        oscillator.connect(gainNode);
-        gainNode.connect(ctx.destination);
-
-        oscillator.start();
-        oscillator.stop(ctx.currentTime + 1.5);
+        const audio = new Audio('/sounds/bell-notification.mp3');
+        audio.play().catch(e => console.warn('Audio play failed', e));
     } catch (error) {
-        console.warn("Audio playback failed:", error);
+        console.warn("Audio setup failed:", error);
     }
 };
