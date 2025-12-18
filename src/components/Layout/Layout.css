@@ -139,9 +139,9 @@
     grid-template-columns: 1fr;
     grid-template-areas:
         "timer"
+        "tasks"
         "galaxy"
-        "stats"
-        "tasks";
+        "stats";
     justify-items: center;
     /* Center items horizontally */
 }
