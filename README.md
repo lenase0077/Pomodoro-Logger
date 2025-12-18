@@ -3,7 +3,6 @@
 A premium, aesthetic, and feature-rich Pomodoro timer designed for deep focus sessions. Built with React and Vite, it combines powerful productivity tracking with immersive visuals to keep you in the zone.
 
 ![Deep Work Timer Preview](public/preview.png)
-*(Note: Add a screenshot of the app here)*
 
 ## ✨ Features
 
