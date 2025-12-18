@@ -1,0 +1,183 @@
+.transparency-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    animation: fadeIn 0.3s ease;
+    padding: var(--space-md);
+}
+
+.transparency-modal {
+    background: var(--color-surface);
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
+    max-width: 500px;
+    width: 100%;
+    box-shadow: var(--shadow-md);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+    color: var(--color-text-main);
+}
+
+.card-preview-container {
+    background: var(--color-bg);
+    padding: var(--space-lg);
+    display: flex;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+    overflow: auto;
+}
+
+/* The actual card design */
+.transparency-card {
+    width: 320px;
+    background: linear-gradient(135deg, hsl(var(--hue-primary), 80%, 10%), hsl(var(--hue-primary), 60%, 5%));
+    color: white;
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    font-family: var(--font-family-base);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add some visual flair / background pattern */
+.transparency-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+    opacity: 0.2;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+}
+
+.card-logo {
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.card-date {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.card-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: var(--space-lg);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-accent);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+.card-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: var(--space-lg);
+}
+
+.card-recent h4 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: var(--space-md);
+}
+
+.recent-list {
+    list-style: none;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+.recent-item {
+    margin-bottom: var(--space-sm);
+    display: flex;
+    gap: var(--space-sm);
+    line-height: 1.4;
+}
+
+.check {
+    color: var(--color-accent);
+    font-weight: bold;
+}
+
+.card-footer {
+    margin-top: var(--space-xl);
+    font-size: 0.7rem;
+    text-align: center;
+    opacity: 0.5;
+    font-family: var(--font-family-mono);
+}
+
+/* Modal Actions */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-md);
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.action-btn.primary {
+    background: var(--color-primary);
+    color: white;
+}
+
+.action-btn:disabled {
+    opacity: 0.6;
+}
+
+/* Dark mode adjustments for modal */
+[data-theme='dark'] .card-preview-container {
+    background: hsl(0, 0%, 5%);
+}

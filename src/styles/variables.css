@@ -1,0 +1,125 @@
+:root {
+  /* HSL Color Palette */
+
+  /* Brand Colors */
+  --hue-primary: 260;
+  /* Deep Purple */
+  --hue-accent: 170;
+  /* Teal/Mint for "fresh" look */
+
+  /* Light Mode Defaults */
+  --color-bg: hsl(220, 20%, 97%);
+  --color-surface: hsl(0, 0%, 100%);
+  --color-surface-hover: hsl(220, 20%, 95%);
+  --color-text-main: hsl(220, 20%, 15%);
+  --color-text-muted: hsl(220, 10%, 45%);
+  --color-border: hsl(220, 15%, 85%);
+
+  --color-primary: hsl(var(--hue-primary), 70%, 55%);
+  --color-primary-glow: hsla(var(--hue-primary), 70%, 55%, 0.3);
+  --color-accent: hsl(var(--hue-accent), 80%, 40%);
+
+  /* Spacing */
+  --space-unit: 8px;
+  --space-xs: calc(var(--space-unit) * 0.5);
+  /* 4px */
+  --space-sm: var(--space-unit);
+  /* 8px */
+  --space-md: calc(var(--space-unit) * 2);
+  /* 16px */
+  --space-lg: calc(var(--space-unit) * 3);
+  /* 24px */
+  --space-xl: calc(var(--space-unit) * 5);
+  /* 40px */
+
+  /* Typography */
+  --font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-family-mono: 'JetBrains Mono', monospace;
+
+  /* Shapes */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px hsla(220, 20%, 15%, 0.05);
+  --shadow-md: 0 8px 24px hsla(220, 20%, 15%, 0.1);
+  --shadow-glow: 0 0 20px var(--color-primary-glow);
+
+  /* Dynamic Transitions */
+  /* Using a custom cubic-bezier for a "springy" or "dynamic" feel */
+  --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-normal: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Smoother, longer, "app-like" */
+}
+
+[data-theme='dark'] {
+  /* Dark Mode Overrides */
+  --color-bg: hsl(225, 20%, 8%);
+
+  /* Slightly lighter surface for contrast against deep bg */
+  --color-surface: hsl(225, 20%, 13%);
+  --color-surface-hover: hsl(225, 20%, 18%);
+
+  --color-text-main: hsl(225, 20%, 95%);
+  --color-text-muted: hsl(225, 10%, 65%);
+  --color-border: hsl(225, 20%, 20%);
+
+  --color-primary: hsl(var(--hue-primary), 80%, 70%);
+  /* Lighter for dark mode */
+  --color-primary-glow: hsla(var(--hue-primary), 80%, 70%, 0.25);
+  --color-accent: hsl(var(--hue-accent), 80%, 60%);
+
+  --shadow-sm: 0 2px 8px hsla(0, 0%, 0%, 0.2);
+  --shadow-md: 0 8px 30px hsla(0, 0%, 0%, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  /* Prevent weird scrollbars during transition if transforms happen */
+}
+
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* 
+   Apply transitions to all actionable/structual elements.
+   We select specific properties to optimize performance and prevent layout thrashing.
+*/
+div,
+button,
+a,
+input,
+textarea,
+span,
+h1,
+h2,
+h3,
+h4,
+section,
+main,
+header,
+footer,
+svg {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+  transition-duration: var(--transition-normal);
+  transition-timing-function: var(--transition-normal);
+  /* Actually timing function is usually separate */
+}

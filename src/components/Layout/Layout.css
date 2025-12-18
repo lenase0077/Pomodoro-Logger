@@ -1,0 +1,130 @@
+.app-layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+}
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) var(--space-lg);
+    /* Reduced padding for compact look */
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    /* Higher Z-index to avoid overlap issues */
+    background-color: hsla(220, 20%, 97%, 0.85);
+    /* Slightly more opaque */
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    /* Smooth transition for border */
+    height: 60px;
+    /* Explicit height to prevent layout shifts */
+}
+
+[data-theme='dark'] .app-header {
+    background-color: hsla(225, 20%, 8%, 0.85);
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-weight: 700;
+    font-size: 1.1rem;
+    /* Slightly smaller */
+    color: var(--color-text-main);
+}
+
+.logo-icon {
+    color: var(--color-primary);
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    padding: var(--space-sm);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.theme-toggle:hover {
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-main);
+}
+
+/* Layout Grid System */
+.app-content {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    /* Wider for dashboard view */
+    margin: 0 auto;
+    padding: var(--space-lg);
+    position: relative;
+    z-index: 1;
+
+    /* Grid Setup */
+    display: grid;
+    gap: var(--space-xl);
+
+    /* Default Mobile: One column stack */
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "timer"
+        "galaxy"
+        "stats"
+        "tasks";
+}
+
+/* Assign Areas */
+.area-timer {
+    grid-area: timer;
+}
+
+.area-galaxy {
+    grid-area: galaxy;
+}
+
+.area-stats {
+    grid-area: stats;
+}
+
+.area-tasks {
+    grid-area: tasks;
+}
+
+/* Desktop: Sidebar layout */
+@media (min-width: 900px) {
+    .app-content {
+        grid-template-columns: 1fr 350px;
+        /* Main content | Sidebar */
+        grid-template-areas:
+            "timer tasks"
+            "galaxy tasks"
+            "stats tasks";
+        align-items: start;
+    }
+
+    .area-tasks {
+        position: sticky;
+        top: 80px;
+        /* Offset for header */
+        height: calc(100vh - 100px);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .task-list-container {
+        height: 100%;
+        max-height: 100%;
+    }
+}

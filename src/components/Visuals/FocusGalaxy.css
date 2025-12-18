@@ -1,0 +1,110 @@
+.galaxy-container {
+    width: 100%;
+    height: 300px;
+    position: relative;
+    background: radial-gradient(circle at bottom, hsl(260, 30%, 15%), hsl(225, 20%, 8%), black);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+    margin-bottom: var(--space-xl);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.galaxy-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.galaxy-info {
+    position: absolute;
+    bottom: var(--space-md);
+    left: var(--space-lg);
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.galaxy-info h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to right, #fff, #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.galaxy-info p {
+    margin: var(--space-xs) 0 0 0;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Tooltip Styles */
+.galaxy-tooltip {
+    position: absolute;
+    transform: translate(-50%, -120%);
+    /* Center horizontally, float above */
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    color: white;
+    pointer-events: none;
+    /* Let mouse move through */
+    border: 1px solid var(--color-primary);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    min-width: 150px;
+    max-width: 250px;
+    text-align: center;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.tooltip-date {
+    font-size: 0.7rem;
+    color: var(--color-accent);
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+
+.tooltip-note {
+    font-size: 0.9rem;
+    line-height: 1.3;
+    font-style: italic;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -110%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -120%);
+    }
+}
+
+[data-theme='light'] .galaxy-container {
+    background: radial-gradient(circle at bottom, hsl(260, 40%, 95%), hsl(220, 30%, 90%));
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border);
+}
+
+[data-theme='light'] .galaxy-info h3 {
+    background: linear-gradient(to right, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+[data-theme='light'] .galaxy-info p {
+    color: var(--color-text-muted);
+}
+
+[data-theme='light'] .galaxy-tooltip {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--color-text-main);
+}

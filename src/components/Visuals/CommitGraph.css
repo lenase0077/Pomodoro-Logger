@@ -1,0 +1,127 @@
+.commit-graph-container {
+    background: var(--color-surface);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+    overflow-x: auto;
+    /* Allow scrolling on mobile if too wide */
+}
+
+.commit-graph-container h3 {
+    margin-bottom: var(--space-md);
+    color: var(--color-text-main);
+    font-size: 1.1rem;
+}
+
+.graph-grid {
+    display: grid;
+    /* Auto-fit is risky for a calendar that needs structured weeks. 
+     Let's use a dense grid that wraps naturally or fixed columns.
+     For a true GitHub look (52 columns, 7 rows), we need more specific grid.
+     But for "Responsive", maybe just a flex wrap of cells?
+     Let's try a responsive grid that shows as much history as fits.
+  */
+    grid-template-columns: repeat(auto-fill, minmax(10px, 1fr));
+    /* Actually, let's force the classic 7-row layout implicitly by flow? 
+     No, let's do a simple heatmap grid for now that adapts to width.
+     GitHub style is tricky to make responsive. 
+     Let's go with a wrapping flex-grid of small squares.
+  */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    justify-content: flex-start;
+    /* Align start to see history order? Or justify-end to see recent? */
+    flex-direction: row-reverse;
+    /* Show recent first (top-left) or modify order in JS? */
+    /* Let's stick to standard row (old -> new) but maybe scroll to end? */
+    flex-direction: row;
+}
+
+/* On mobile, we might only want to show the last 30-60 days. 
+   The JS renders 365, which is a lot of DOM nodes.
+   Let's create a scrollable view.
+*/
+.graph-grid {
+    display: grid;
+    grid-template-columns: repeat(53, 1fr);
+    /* 53 weeks roughly */
+    grid-template-rows: repeat(7, 1fr);
+    grid-auto-flow: column;
+    /* Fill columns first (weeks) */
+    gap: 3px;
+    height: 100px;
+    overflow: hidden;
+    /* Hide overflow or scroll? */
+}
+
+/* Adjust for resizing: If container is small, graph might look squished.
+   Let's make it horizontally scrollable.
+*/
+.commit-graph-container {
+    overflow-x: auto;
+}
+
+.graph-grid {
+    min-width: 600px;
+    /* Force minimum width to keep it looking like a graph */
+}
+
+
+.day-cell {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background-color: var(--color-surface-hover);
+    /* Level 0 */
+    border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.day-cell.level-1 {
+    background-color: hsla(var(--hue-primary), 70%, 85%, 1);
+}
+
+.day-cell.level-2 {
+    background-color: hsla(var(--hue-primary), 70%, 70%, 1);
+}
+
+.day-cell.level-3 {
+    background-color: hsla(var(--hue-primary), 70%, 55%, 1);
+}
+
+.day-cell.level-4 {
+    background-color: hsla(var(--hue-primary), 70%, 40%, 1);
+}
+
+[data-theme='dark'] .day-cell.level-1 {
+    background-color: hsla(var(--hue-primary), 60%, 25%, 1);
+}
+
+[data-theme='dark'] .day-cell.level-2 {
+    background-color: hsla(var(--hue-primary), 60%, 40%, 1);
+}
+
+[data-theme='dark'] .day-cell.level-3 {
+    background-color: hsla(var(--hue-primary), 60%, 55%, 1);
+}
+
+[data-theme='dark'] .day-cell.level-4 {
+    background-color: hsla(var(--hue-primary), 60%, 75%, 1);
+}
+
+
+.graph-legend {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    justify-content: flex-end;
+}
+
+.legend-cells {
+    display: flex;
+    gap: 3px;
+}
