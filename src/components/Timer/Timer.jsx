@@ -1,4 +1,4 @@
-import { Play, Pause, RotateCcw } from 'lucide-react';
+import { Play, Pause, RotateCcw, SkipForward } from 'lucide-react';
 import './Timer.css';
 
 export default function Timer({
@@ -8,7 +8,7 @@ export default function Timer({
     onReset,
     onSwitchMode
 }) {
-    const { timeLeft, isRunning, mode, progress, formatTime, MODES } = timerState;
+    const { timeLeft, isRunning, mode, progress, formatTime, MODES, finishSession } = timerState;
 
     // Calculate Dash Offset for SVG Circle
     const radius = 120;
@@ -60,6 +60,12 @@ export default function Timer({
             </div>
 
             <div className="timer-controls">
+                {isRunning && (
+                    <button className="control-btn secondary" onClick={timerState.finishSession} title="Finish Early">
+                        <SkipForward size={20} />
+                    </button>
+                )}
+
                 {!isRunning ? (
                     <button className="control-btn primary" onClick={onStart}>
                         <Play size={24} fill="currentColor" />

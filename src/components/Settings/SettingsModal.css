@@ -1,0 +1,113 @@
+.settings-popover {
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    width: 280px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    z-index: 100;
+    padding: var(--space-md);
+    animation: popIn 0.2s ease-out;
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.settings-form-popover {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.popover-section h4 {
+    margin: 0 0 var(--space-sm) 0;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+.inputs-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+}
+
+.input-tiny {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.input-tiny label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+.input-tiny input {
+    width: 100%;
+    padding: 6px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    color: var(--color-text-main);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.checkbox-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-sm);
+}
+
+.icon-toggle {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    transition: all 0.2s;
+}
+
+.icon-toggle.on {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.popover-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.save-btn-small {
+    background: var(--color-text-main);
+    color: var(--color-bg);
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}

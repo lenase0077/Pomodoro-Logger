@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Moon, Sun } from 'lucide-react';
 import './Layout.css';
 
-export default function Layout({ children }) {
+export default function Layout({ children, headerActions }) {
     const [theme, setTheme] = useState('light');
 
     useEffect(() => {
@@ -65,9 +65,12 @@ export default function Layout({ children }) {
                     <span className="logo-icon">⚡</span>
                     <h1>Deep Work</h1>
                 </div>
-                <button onClick={(e) => toggleTheme(e)} className="theme-toggle" aria-label="Toggle theme">
-                    {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
-                </button>
+                <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    {headerActions}
+                    <button onClick={(e) => toggleTheme(e)} className="theme-toggle" aria-label="Toggle theme">
+                        {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+                    </button>
+                </div>
             </header>
             <main className="app-content">
                 {children}

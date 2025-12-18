@@ -39,17 +39,23 @@ export default function TaskList({ onTaskComplete }) {
     };
 
     const toggleTask = (id) => {
+        const taskToUpdate = tasks.find(t => t.id === id);
+        if (!taskToUpdate) return;
+
+        const willBeCompleted = !taskToUpdate.completed;
+
+        // Update state purely
         setTasks(prev => prev.map(t => {
             if (t.id === id) {
-                const isNowCompleted = !t.completed;
-                // If becoming completed, trigger auto-log callback
-                if (isNowCompleted && onTaskComplete) {
-                    onTaskComplete(t.text);
-                }
-                return { ...t, completed: isNowCompleted };
+                return { ...t, completed: willBeCompleted };
             }
             return t;
         }));
+
+        // Trigger side effect ONLY if completing (and outside the setter)
+        if (willBeCompleted && onTaskComplete) {
+            onTaskComplete(taskToUpdate.text);
+        }
     };
 
     const deleteTask = (id) => {

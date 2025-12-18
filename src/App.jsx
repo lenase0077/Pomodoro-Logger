@@ -6,9 +6,10 @@ import CommitGraph from './components/Visuals/CommitGraph'
 import FocusGalaxy from './components/Visuals/FocusGalaxy'
 import TaskList from './components/Tasks/TaskList'
 import TransparencyCard from './components/Export/TransparencyCard'
+import SettingsModal from './components/Settings/SettingsModal'
 import { useTimer } from './hooks/useTimer'
 import { useWorkLog } from './hooks/useWorkLog'
-import { Share2 } from 'lucide-react'
+import { Share2, Settings } from 'lucide-react'
 import './App.css'
 
 function App() {
@@ -24,11 +25,14 @@ function App() {
     switchMode,
     formatTime,
     MODES,
-    debugFastForward
+    debugFastForward,
+    finishSession,
+    updateSettings
   } = useTimer();
 
   const { addLog, logs } = useWorkLog();
   const [showExport, setShowExport] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   const handleLog = useCallback((note) => {
     // Log the session (using default duration for the mode)
@@ -52,10 +56,46 @@ function App() {
   }, [addLog]);
 
   return (
-    <Layout>
+    <Layout headerActions={
+      <div style={{ position: 'relative' }}>
+        <button
+          onClick={(e) => { e.stopPropagation(); setShowSettings(!showSettings); }}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: 'var(--color-text-muted)',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '8px',
+            borderRadius: '50%',
+            cursor: 'pointer',
+            transition: 'background 0.2s, color 0.2s'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)';
+            e.currentTarget.style.color = 'var(--color-text-main)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'transparent';
+            e.currentTarget.style.color = 'var(--color-text-muted)';
+          }}
+          aria-label="Settings"
+          title="Settings"
+        >
+          <Settings size={20} />
+        </button>
+
+        {/* Settings Popover is rendered HERE, relative to the button container */}
+        <SettingsModal
+          isOpen={showSettings}
+          onClose={() => setShowSettings(false)}
+          onSave={updateSettings}
+        />
+      </div>
+    }>
       <div className="area-timer">
         <Timer
-          timerState={{ timeLeft, isRunning, mode, progress, formatTime, MODES }}
+          timerState={{ timeLeft, isRunning, mode, progress, formatTime, MODES, finishSession }}
           onStart={startTimer}
           onPause={pauseTimer}
           onReset={resetTimer}
@@ -118,6 +158,8 @@ function App() {
           onClose={() => setShowExport(false)}
         />
       )}
+
+      {/* Settings Modal removed from bottom, now in Header */}
 
       {/* Debug Control */}
       <div style={{ position: 'fixed', bottom: '10px', right: '10px', opacity: 0.2, transition: 'opacity 0.3s', zIndex: 9999 }}
