@@ -36,6 +36,12 @@ export default function Timer({
             </div>
 
             <div className="timer-display">
+                <div className="timer-text">
+                    <div className="time">{formatTime(timeLeft)}</div>
+                    <div className="status">{isRunning ? 'Focusing...' : 'Ready'}</div>
+                </div>
+
+                {/* Circular Timer (Desktop) */}
                 <svg className="timer-ringable" width="300" height="300">
                     <circle
                         className="ring-bg"
@@ -59,9 +65,13 @@ export default function Timer({
                         strokeLinecap="round"
                     />
                 </svg>
-                <div className="timer-text">
-                    <div className="time">{formatTime(timeLeft)}</div>
-                    <div className="status">{isRunning ? 'Focusing...' : 'Ready'}</div>
+
+                {/* Linear Timer (Mobile) */}
+                <div className="timer-linear-progress">
+                    <div
+                        className="linear-bar-fill"
+                        style={{ width: `${progress * 100}%` }}
+                    />
                 </div>
             </div>
 

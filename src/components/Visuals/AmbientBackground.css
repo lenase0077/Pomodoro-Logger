@@ -194,3 +194,14 @@
     background: #991b1b;
     opacity: 0.3;
 }
+
+/* Performance Optimization for Mobile */
+@media (max-width: 768px) {
+    .aurora-orb {
+        filter: blur(40px);
+        /* Reduced from 80px for performance */
+        opacity: 0.3;
+        will-change: transform;
+        /* Promote to layer */
+    }
+}

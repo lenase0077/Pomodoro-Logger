@@ -22,7 +22,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     width: fit-content;
-    min-width: 320px;
+    max-width: 100%;
+    /* Ensure it doesn't overflow small screens */
 }
 
 .selector-bg {
@@ -63,11 +64,33 @@
     box-shadow: none;
 }
 
+/* Linear Progress Bar (Hidden by default) */
+.timer-linear-progress {
+    display: none;
+    width: 100%;
+    max-width: 300px;
+    height: 8px;
+    background: var(--color-surface-hover);
+    border-radius: 99px;
+    overflow: hidden;
+    margin-top: var(--space-md);
+    position: relative;
+    z-index: 10;
+}
+
+.linear-bar-fill {
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: 99px;
+    transition: width 1s linear;
+}
+
 .timer-display {
     position: relative;
     width: 300px;
     height: 300px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 5;
@@ -151,15 +174,50 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 400px) {
+@media (max-width: 768px) {
 
-    .timer-display,
+    .timer-display {
+        /* Remove fixed height to allow auto-sizing with text/bar */
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        min-height: 180px;
+        /* Sufficient for text + bar */
+        margin: 20px 0;
+    }
+
+    /* Hide Ring */
     .timer-ringable {
-        width: 260px;
-        height: 260px;
+        display: none;
+    }
+
+    /* Show Linear */
+    .timer-linear-progress {
+        display: block;
+    }
+
+    /* Adjust Text Positioning */
+    .timer-text {
+        position: relative;
+        /* No longer absolute inside ring */
+        margin-bottom: 20px;
     }
 
     .time {
-        font-size: 3rem;
+        font-size: 4rem;
+        /* Bigger on mobile since no ring constrains it */
+        line-height: 1;
+    }
+
+
+
+    .mode-selector {
+        width: 100%;
+    }
+
+    .mode-btn {
+        padding: var(--space-sm) var(--space-xs);
+        /* Reduce horizontal padding */
+        font-size: 0.8rem;
     }
 }
