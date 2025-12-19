@@ -11,6 +11,7 @@ import { useTimer } from './hooks/useTimer'
 import { useWorkLog } from './hooks/useWorkLog'
 import { Share2, Settings } from 'lucide-react'
 import AmbientBackground from './components/Visuals/AmbientBackground'
+import DonationMenu from './components/Donations/DonationMenu'
 import './App.css'
 
 function App() {
@@ -60,40 +61,43 @@ function App() {
 
   return (
     <Layout headerActions={
-      <div style={{ position: 'relative' }}>
-        <button
-          onClick={(e) => { e.stopPropagation(); setShowSettings(!showSettings); }}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: 'var(--color-text-muted)',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '8px',
-            borderRadius: '50%',
-            cursor: 'pointer',
-            transition: 'background 0.2s, color 0.2s'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)';
-            e.currentTarget.style.color = 'var(--color-text-main)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = 'transparent';
-            e.currentTarget.style.color = 'var(--color-text-muted)';
-          }}
-          aria-label="Settings"
-          title="Settings"
-        >
-          <Settings size={20} />
-        </button>
+      <>
+        <DonationMenu />
+        <div style={{ position: 'relative' }}>
+          <button
+            onClick={(e) => { e.stopPropagation(); setShowSettings(!showSettings); }}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--color-text-muted)',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '8px',
+              borderRadius: '50%',
+              cursor: 'pointer',
+              transition: 'background 0.2s, color 0.2s'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)';
+              e.currentTarget.style.color = 'var(--color-text-main)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = 'var(--color-text-muted)';
+            }}
+            aria-label="Settings"
+            title="Settings"
+          >
+            <Settings size={20} />
+          </button>
 
-        <SettingsModal
-          isOpen={showSettings}
-          onClose={() => setShowSettings(false)}
-          onSave={updateSettings}
-        />
-      </div>
+          <SettingsModal
+            isOpen={showSettings}
+            onClose={() => setShowSettings(false)}
+            onSave={updateSettings}
+          />
+        </div>
+      </>
     }>
       <AmbientBackground mode={mode.id} />
 
